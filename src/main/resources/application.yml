@@ -1,27 +1,29 @@
 spring:
   application:
-    name: microservice-crops
-  datasource:
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://servidorbasedatosmicroservicios.database.windows.net:1433;database=cropsmicroservicioarqui;user=microservicios;password=123q321Q@;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
-  jpa:
+    name: microservice-crops # Nombre de la aplicación en Eureka
+
+datasource:
+  driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  url: jdbc:sqlserver://servidorbasedatosmicroservicios.database.windows.net:1433;database=cropsmicroservicioarqui;user=microservicios;password=123q321Q@;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+jpa:
+  hibernate:
+    ddl-auto: update
+    naming:
+      physical-strategy: com.microservice.crops.shared.infrastructure.persistence.jpa.configuration.strategy.SnakeCaseNameStrat
+  open-in-view: true
+  properties:
     hibernate:
-      ddl-auto: update
-      naming:
-        physical-strategy: com.microservice.crops.shared.infrastructure.persistence.jpa.configuration.strategy.SnakeCaseNameStrat
-    open-in-view: true
-    properties:
-      hibernate:
-        format_sql: true
-    database: sql_server
-    database-platform: org.hibernate.dialect.SQLServerDialect
-  config:
-    import: optional:configserver:https://microservicioconfig.azurewebsites.net
+      format_sql: true
+  database: sql_server
+  database-platform: org.hibernate.dialect.SQLServerDialect
+
+config:
+  import: optional:configserver:https://microservicioconfig.azurewebsites.net
 
 eureka:
   client:
     service-url:
-      defaultZone: https://eurekamsvc.azurewebsites.net
+      defaultZone: https://eurekamsvc.azurewebsites.net/eureka/  # URL de Eureka donde se registrará
 
 server:
-  port: 8081
+  port: 8081  # Puerto en el que el microservicio 'crops' se va a ejecutar
