@@ -21,7 +21,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: eurekamsvc.azurewebsites.net
+      defaultZone: https://eurekamsvc.azurewebsites.net
 
 server:
   port: 8081
